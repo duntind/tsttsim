@@ -17,3 +17,7 @@ use App\Http\Controllers\ProductController;
 Route::get('/',[ProductController::class, 'index']);
 //
 Route::resource('products', ProductController::class) ;
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\ProductController::class, 'index'])->name('home');
