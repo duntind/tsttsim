@@ -23,7 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('display');
             $table->string('color');
             $table->string('chipset');
-            $table->string('description');            
+            $table->string('description');    
+            $table->string('storage');            
             $table->decimal('price');                 
             $table->timestamps();
         });

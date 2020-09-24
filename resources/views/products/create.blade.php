@@ -142,7 +142,7 @@
                                             <label>Amount In Stock<span class="text-danger">*</span></label>
                                             <input type="number" name="stock" class="form-control" placeholder="Enter Amount In Stock"
                                                 value="{{ old('stock') }}">
-                                            @error('stock_id')
+                                            @error('stock')
                                             <span class="error invalid-feedback" style="display: inline;">
                                                 {{ $errors->first('stock') }} </span>
                                             @enderror
@@ -158,6 +158,17 @@
                                             @error('price')
                                             <span class="error invalid-feedback" style="display: inline;">
                                                 {{ $errors->first('price') }} </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Storage<span class="text-danger">*</span></label>
+                                            <input type="text" name="storage" class="form-control" placeholder="Enter Price"
+                                                value="{{ old('storage') }}">
+                                            @error('storage')
+                                            <span class="error invalid-feedback" style="display: inline;">
+                                                {{ $errors->first('storage') }} </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -217,7 +228,7 @@
           description: {
             required: true,         
           },
-          stock_id: {
+          stock: {
             required: true,         
           },
           price: {
@@ -225,6 +236,8 @@
             min:0.01, 
             max: 9999.99,        
           },
+          storage: {
+            required: true, 
         },
         messages: {
           onBehalfOf: {

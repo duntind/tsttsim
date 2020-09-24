@@ -15,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('index', compact('products'));
     }
 
     /**
@@ -45,6 +46,7 @@ class ProductController extends Controller
             'display' => 'required',
             'color' => 'required',
             'chipset' => 'required',
+            'storage' => 'required',
             'description' => 'required',
             'stock' => 'required|integer',
             'price' => 'required|numeric|min:0.02',
@@ -58,12 +60,13 @@ class ProductController extends Controller
             'brand' => request('brand'),
             'primary_camera' => request('primary_camera'),
             'secondary_camera' => request('secondary_camera'),
-            'image' => '$imageName',
+            'image' => $imageName,
             'display' => request('display'),
             'color' => request('color'),
             'chipset' => request('chipset'),
             'description' => request('description'),            
             'price' => request('price'),
+            'storage' => request('storage'),
         ]);
 
         for ($i = 0; $i < ($request['stock']); ++$i) {
