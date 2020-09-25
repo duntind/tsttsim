@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('inventory_item_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('billing_address'); 
-            $table->string('description'); 
+            $table->string('full_name'); 
             $table->string('shipping_address');
             $table->string('credit_card'); 
             $table->string('status');  

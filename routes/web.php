@@ -21,6 +21,8 @@ Route::resource('products', ProductController::class);
 
 Route::resource('cartitems', CartItemController::class);
 
+Route::get('cart', [CartItemController::class, 'index']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\ProductController::class, 'index'])->name('home');
