@@ -73,7 +73,7 @@
                                 </div>
                                 <!-- /.col -->
                               </div>
-                            <a href="login.html" class="text-center">I already have a membership</a>
+                            <a href="{{route('login')}}" class="text-center">I already have a membership</a>
                         </form>
                     </div>
                 </div>

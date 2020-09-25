@@ -6,7 +6,7 @@
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">Products</li>
-        <li class="breadcrumb-item active">{{$product->name}}</li>
+            <li class="breadcrumb-item active">{{ $product->name }}</li>
         </ol>
     </div><!-- /.col -->
 @endsection
@@ -29,7 +29,7 @@
                         <h3 class="my-3">{{ $product->name }} {{ $product->storage }} ({{ $product->color }})</h3>
                         <p>{{ $product->description }}</p>
 
-                        <hr>                       
+                        <hr>
 
                         <h4 class="mt-3">Specifications</h4>
                         <table class="table table-striped">
@@ -60,45 +60,53 @@
 
                         <div class="bg-gray py-2 px-3 mt-4">
                             <h2 class="mb-0">
-                                {{ $product->price }}
+                                ${{ $product->price }}
                             </h2>
                             <h4 class="mt-0">
                                 <small>In Stock</small>
                             </h4>
                         </div>
+                        @if (Auth::check())
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <!-- select -->
+                                        <form method="POST" action="/cartitems">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <select  name="quantity" class="custom-select">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>                                            
+                                        </div>                                       
+                                    </div>
 
-                        <div class="mt-4">
-                           <div class="row">
-                            <div class="col-sm-2">
-                                <!-- select -->
-                                <div class="form-group">
-                                  <label>Quantity</label>
-                                  <select class="custom-select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                  </select>
+                                    <div class="form-group">
+                                        <br>
+                                        <button class="btn btn-primary btn-lg btn-flat">
+                                            <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                            Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                @error('quantity')
+                                <span class="error invalid-feedback" style="display: inline;">
+                                    {{ $errors->first('quantity') }} </span>
+                                @enderror
                                 </div>
-                              </div>
-                              
-                              <div class="form-group">
-                                  <br>
-                            <div class="btn btn-primary btn-lg btn-flat">
-                                <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                Add to Cart
-                            </div> 
-                        </div>                         
-                            
-
-
-                        </div>
-                    </div>
-
-
-
-                    </div>
+                                @else
+                            <div class="mt-4">
+                                <p class="text-danger">Please <a href={{ Route('login') }}> Sign In</a> to continue</p>
+                            </div>
+                        @endif
+                            </div>
+                        
+                    
                 </div>
 
             </div>
