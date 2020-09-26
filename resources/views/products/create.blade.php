@@ -29,9 +29,9 @@
                                             <label>Product Name<span class="text-danger">*</span></label>
                                             <input type="text" name="name" class="form-control"
                                                 placeholder="Enter Product Name" value="{{ old('name') }}">
-                                            @error('google_id')
+                                            @error('name')
                                             <span class="error invalid-feedback" style="display: inline;">
-                                                {{ $errors->first('brand') }} </span>
+                                                {{ $errors->first('name') }} </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
                                             <label>Brand<span class="text-danger">*</span></label>
                                             <input type="text" name="brand" class="form-control" placeholder=" Enter Brand"
                                                 value="{{ old('brand') }}">
-                                            @error('first_name')
+                                            @error('brand')
                                             <span class="error invalid-feedback" style="display: inline;">
                                                 {{ $errors->first('brand') }} </span>
                                             @enderror
@@ -195,71 +195,83 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function () {
-      $.validator.setDefaults({
-        
-      });
-      $('#addProductForm').validate({
+    $(document).ready(function() {
+    $.validator.setDefaults({
+
+    });
+    $('#addProductForm').validate({
+        ignore: [],
         rules: {
-          name: {
-            required: true,         
-          },        
-          brand: {
-            required: true,         
-          },
-          primary_camera: {
-            required: true,         
-          },
-          secondary_camera: {
-            required: true
-          },
-          image: {
-            required: true,         
-          },
-          display: {
-            required: true,         
-          },
-          color: {
-            required: true,         
-          },
-          chipset: {
-            required: true,         
-          },
-          description: {
-            required: true,         
-          },
-          stock: {
-            required: true,         
-          },
-          price: {
-            required: true,
-            min:0.01, 
-            max: 9999.99,        
-          },
-          storage: {
-            required: true, 
+            name: {
+                required: true,
+            },
+            brand: {
+                required: true,                
+            },
+            primary_camera: {
+                required: true,                
+            },
+            secondary_camera: {
+                required: true,                
+            },
+            image: {
+                required:true,                
+            },
+            display: {
+                required: true,                
+            },
+            color: {
+                required: true,
+            },
+            chipset: {
+                required: true,                
+            },
+            description: {
+                required: true,
+            },
+            stock: {
+                required: true,
+                min:0,
+                max:999,
+            },
+            storage: {
+                required: true,
+            },
+            price: {
+                required: true,
+                min:0.2,
+                max:99999,
+            },  
         },
         messages: {
-          onBehalfOf: {
-            required: "please select a user",         
-          },       
-                   
+            
+
         },
         errorElement: 'span',
-        errorPlacement: function (error, element) {
-          error.addClass('invalid-feedback');
-          element.closest('.form-group').append(error);
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
         },
-        highlight: function (element, errorClass, validClass) {
-          $(element).addClass('is-invalid');
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
         },
-        unhighlight: function (element, errorClass, validClass) {
-          $(element).removeClass('is-invalid');
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+
+        submitHandler: function(form) { // <- pass 'form' argument in
+            $(".btn").attr("disabled", true);
+            form.submit(); // <- use 'form' argument here.
         }
-      });
     });
-    </script>
-    {{-- replace name of file --}}
+    });    
+
+</script>
+
+
+ 
+    
+   
     <script src="{{asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {

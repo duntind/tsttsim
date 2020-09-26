@@ -10,4 +10,17 @@ class CartItem extends Model
     use HasFactory;
 
     protected $guarded =[];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
+    public function getTotalPriceAttribute() {
+        return $this->quantity * $this->product->price;
+    }
 }
+

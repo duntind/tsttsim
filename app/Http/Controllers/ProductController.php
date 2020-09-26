@@ -48,8 +48,8 @@ class ProductController extends Controller
             'chipset' => 'required',
             'storage' => 'required',
             'description' => 'required',
-            'stock' => 'required|integer',
-            'price' => 'required|numeric|min:0.02',
+            'stock' => 'required|integer|min:0|max:999',
+            'price' => 'required|numeric|min:0.02|max:39999',
         ]);
         
         $imageName = time().'.'.$request->image->extension();

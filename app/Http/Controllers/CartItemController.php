@@ -37,16 +37,19 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
+        CartItem::where('product_id', $request->product_id)->where('user_id', Auth::user()->id)->delete();
+        //Check if product is in stock
         $inStock = InventoryItem::where('product_id', $request->product_id)->get()->count();
-        $validatedData = $request->validate([
+        $request->validate([
             'quantity' => 'required|integer|max:' . $inStock,
         ]);
-        for ($i = 0; $i < (request('quantity')); ++$i) {
+        
             CartItem::Create([
                 'product_id' => request('product_id'),
                 'user_id' => Auth::user()->id,
+                'quantity'=> request('quantity'),
             ]);
-        }
+        
     }
 
     /**
