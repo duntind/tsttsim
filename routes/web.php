@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\InventoryItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::resource('products', ProductController::class);
 Route::resource('orders', OrderController::class);
 
 Route::resource('cartItems', CartItemController::class);
+
+Route::resource('inventoryItems', InventoryItemController::class);
 
 Route::get('cart', [CartItemController::class, 'index']);
 

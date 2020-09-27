@@ -63,10 +63,15 @@
                                 ${{ $product->price }}
                             </h2>
                             <h4 class="mt-0">
+                                @if ($product->inventoryItems->where('status','available')->count() > 0)
                                 <small>In Stock</small>
+                                @else
+                                <small>Out Of Stock</small>
+                                @endif
                             </h4>
                         </div>
-                        @if (Auth::check())
+                        @can('isCustomer')                           
+                        
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-sm-2">
@@ -98,12 +103,16 @@
                                 <span class="error invalid-feedback" style="display: inline;">
                                     {{ $errors->first('quantity') }} </span>
                                 @enderror
-                                </div>
-                                @else
+                                </div>                                                               
+                                @elsecan('isAdmin')
+                                <div class="mt-4">
+                                <p class="text-danger">Only customer usertype can purchase</p>
+                            </div>
+                            @else
                             <div class="mt-4">
                                 <p class="text-danger">Please <a href={{ Route('login') }}> Sign In</a> to continue</p>
                             </div>
-                        @endif
+                        @endcan
                             </div>
                         
                     

@@ -102,7 +102,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        abort_if(Gate::denies('isAdmin'),401);
+        return view('products.edit',compact('product'));
     }
 
     /**
@@ -114,7 +115,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'brand' => 'required',
+            'primary_camera' => 'required',
+            'secondary_camera' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'display' => 'required',
+            'color' => 'required',
+            'chipset' => 'required',
+            'storage' => 'required',
+            'description' => 'required',
+            'stock' => 'nullable|integer|min:0|max:999',
+            'price' => 'required|numeric|min:0.02|max:39999',
+        ]);
+            if(!empty($request->image)){
+                $imageName = time().'.'.$request->image->extension();
+                 $request->image->move(public_path('images'), $imageName);
+                 $product->image = $imageName;
+                 $product->save;
+            }
+            $product->update([
+                'name' => request('name'),
+                'brand' => request('brand'),
+                'primary_camera' => request('primary_camera'),
+                'secondary_camera' => request('secondary_camera'),                
+                'display' => request('display'),
+                'color' => request('color'),
+                'chipset' => request('chipset'),
+                'description' => request('description'),            
+                'price' => request('price'),
+                'storage' => request('storage'),
+            ]);
+            for ($i = 0; $i < ($request['stock']); ++$i) {
+                InventoryItem::Create([
+                    'product_id' => $product->id,
+                    'status'=>'available'
+                ]);
+            }
+            return redirect('/products/'.$product->id);
+
     }
 
     /**
@@ -125,6 +165,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        
     }
 }

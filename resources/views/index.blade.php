@@ -30,7 +30,12 @@
             <div class="btn-group">
             <strong class="lead">${{$product->price}}</strong>
             </div>
-            <small class="text-success"> In Stock</small>
+          @if ($product->inventoryItems->where('status','available')->count() > 0)
+          <small class="text-success"> In Stock</small>   
+          @else
+          <small class="text-danger"> Out Of Stock</small>  
+          @endif
+            
           </div>
         </div>
       </div>      
@@ -60,25 +65,30 @@
                     <tbody>
                         @foreach ($products as $product)
                             <tr>                                            
-                                <td>{{ $product->name}}</td>
+                                <td>{{ $product->name}} ({{$product->color}})</td>
                                 <td>{{ $product->brand}}</td>
                                 <td>{{ $product->inventoryItems->where('status', 'available')->count()}}</td>                                                                                       
                                 <td class="project-actions text-center">
-                                    <a class="btn btn-info btn-sm" href="">
+                                    <a class="btn btn-info btn-sm" href="{{ route('products.edit', $product->id) }}">
                                         <i class="fas fa-edit">
                                         </i>
                                         Edit
-                                    </a>                                                                                   
+                                    </a>
+                                    <a class="btn btn-default btn-sm" href="{{ route('products.show', $product->id) }}">
+                                      <i class="fas fa-eye">
+                                      </i>
+                                      View
+                                  </a>                                                                                   
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Google ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>                                        
-                            <th>Action</th>
+                          <th>Product Name</th>
+                          <th>Brand</th>
+                          <th>Amount In Stock</th> 
+                          <th>Action</th> 
                         </tr>
                     </tfoot>
                 </table>

@@ -80,6 +80,7 @@ class InventoryItemController extends Controller
      */
     public function destroy(InventoryItem $inventoryItem)
     {
-        //
+        $inventoryItem->delete();
+        return redirect()->back();
     }
 }
