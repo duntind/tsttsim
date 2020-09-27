@@ -14,7 +14,7 @@
 <section class="content">
   <div class="container-fluid">
 
-    
+   @cannot('isAdmin')
     <!-- /.card -->
    <div class="row">
      @foreach ($products as $product)       
@@ -37,7 +37,59 @@
     </div>
     @endforeach
    </div>
-  
+   @else
+   <div class="row">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+                
+                <a href="/product/create" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add Product</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Brand</th>
+                            <th>Amount In Stock</th> 
+                            <th>Action</th>                                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr>                                            
+                                <td>{{ $product->name}}</td>
+                                <td>{{ $product->brand}}</td>
+                                <td>{{ $product->inventoryItems->where('status', 'available')->count()}}</td>                                                                                       
+                                <td class="project-actions text-center">
+                                    <a class="btn btn-info btn-sm" href="">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                        Edit
+                                    </a>                                                                                   
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Google ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>                                        
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+@endcannot
   </div>
    
   </section>  

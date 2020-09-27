@@ -71,7 +71,7 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <!-- select -->
-                                        <form method="POST" action="/cartitems">
+                                        <form method="POST" action="/cartItems">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{$product->id}}">
                                         <div class="form-group">

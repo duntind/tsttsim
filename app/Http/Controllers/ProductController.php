@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\InventoryItem;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -26,6 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('isAdmin'),401);
         return view('products.create');
     }
 
@@ -37,6 +39,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validatedData = $request->validate([
             'name' => 'required',
             'brand' => 'required',

@@ -10,6 +10,15 @@ use Auth;
 class CartItemController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -39,7 +48,7 @@ class CartItemController extends Controller
     {
         CartItem::where('product_id', $request->product_id)->where('user_id', Auth::user()->id)->delete();
         //Check if product is in stock
-        $inStock = InventoryItem::where('product_id', $request->product_id)->get()->count();
+        $inStock = InventoryItem::where('product_id', $request->product_id)->where('status',"available")->get()->count();
         $request->validate([
             'quantity' => 'required|integer|max:' . $inStock,
         ]);
@@ -49,7 +58,7 @@ class CartItemController extends Controller
                 'user_id' => Auth::user()->id,
                 'quantity'=> request('quantity'),
             ]);
-        
+        return redirect('/cart');
     }
 
     /**
@@ -94,6 +103,7 @@ class CartItemController extends Controller
      */
     public function destroy(CartItem $cartItem)
     {
-        //
+        $cartItem->delete();
+        return redirect()->back();
     }
 }

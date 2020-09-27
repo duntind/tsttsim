@@ -112,8 +112,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Description<span class="text-danger">*</span></label>
-                                            <textarea type="text" name="description" class="form-control"
-                                                placeholder="Enter Description"> {{ old('description') }}</textarea>
+                                            <input type="text" name="description" class="form-control"
+                                                placeholder="Enter Description" value ="{{ old('description') }}">
                                             @error('description')
                                             <span class="error invalid-feedback" style="display: inline;">
                                                 {{ $errors->first('description') }} </span>
@@ -233,6 +233,7 @@
                 required: true,
                 min:0,
                 max:999,
+                step:1,
             },
             storage: {
                 required: true,

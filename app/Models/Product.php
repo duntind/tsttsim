@@ -15,4 +15,8 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\CartItem');
     }
+    public function inventoryItems()
+    {
+        return $this->hasMany('App\Models\InventoryItem');
+    }
 }

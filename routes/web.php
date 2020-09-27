@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,13 @@ Route::get('/',[ProductController::class, 'index']);
 
 Route::resource('products', ProductController::class);
 
-Route::resource('cartitems', CartItemController::class);
+Route::resource('orders', OrderController::class);
+
+Route::resource('cartItems', CartItemController::class);
 
 Route::get('cart', [CartItemController::class, 'index']);
 
 Auth::routes();
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 Route::get('/home', [App\Http\Controllers\ProductController::class, 'index'])->name('home');
