@@ -44,6 +44,8 @@
           </p>
         </a>
       </li>
+      @endcan
+      @if(Auth::check())
       <li class="nav-item">
         <a href="/logout" class="nav-link">
           
@@ -52,7 +54,7 @@
           </p>
         </a>
       </li>
-      @endCan
+      @endif
     </ul>
   </nav>
   <!-- /.sidebar-menu -->

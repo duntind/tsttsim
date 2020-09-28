@@ -19,6 +19,8 @@ use App\Http\Controllers\InventoryItemController;
 
 Route::get('/',[ProductController::class, 'index']);
 
+Route::post('/',[ProductController::class, 'index']);
+
 Route::resource('products', ProductController::class);
 
 Route::resource('orders', OrderController::class);

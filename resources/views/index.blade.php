@@ -49,7 +49,7 @@
         <div class="card">
             <div class="card-header">
                 
-                <a href="/product/create" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add Product</a>
+                <a href="/products/create" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add Product</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

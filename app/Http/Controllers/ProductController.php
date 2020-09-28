@@ -16,7 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        if(isset(request()->search)){
+            $search = request()->search;            
+            $products = Product::where('name','LIKE','%'.$search.'%')->orWhere('brand','LIKE','%'.$search.'%')->get();
+        } else {
+            $products = Product::all();
+        }  
         return view('index', compact('products'));
     }
 
@@ -80,7 +85,7 @@ class ProductController extends Controller
         }
         
         
-        
+        return redirect('/products/'.$product->id);
     }
 
     /**

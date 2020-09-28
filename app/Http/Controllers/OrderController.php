@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\InventoryItem;
+use App\Models\Order;
 use Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('isCustomer'),401);
+        abort_if(Gate::denies('isCustomer'), 401);
         return view('orders.index');
     }
 
@@ -44,34 +44,29 @@ class OrderController extends Controller
             'full_name' => 'required',
             'credit_card' => 'required',
             'billing_address' => 'required',
-            'shipping_address' => 'required',  
+            'shipping_address' => 'required',
         ]);
-        foreach($cartItems as $cartItem){
-            if($cartItem->quantity > $cartItem->product->inventoryItems->where('status', 'available')->count()){
+        foreach ($cartItems as $cartItem) {
+            if ($cartItem->quantity > $cartItem->product->inventoryItems->where('status', 'available')->count()) {
                 return redirect()->back()->with('error', 'please check your cart')->withInput($request->input());
             }
             for ($i = 0; $i < ($cartItem['quantity']); ++$i) {
-               $inventoryItem = InventoryItem::Where('product_id', $cartItem->product_id)->where('status', 'available')->first();
-               $inventoryItem->status = "sold";
-               $inventoryItem->save();               
-               Order::Create([
-                'inventory_item_id' => $inventoryItem->id,
-                'full_name'=>request('full_name'),
-                'billing_address'=>request('billing_address'),
-                'shipping_address'=>request('shipping_address'),
-                'user_id'=>Auth::user()->id,
-                'credit_card'=>request('credit_card'),
-                'status' => "pending",
-            ]);  
-            //remove from cart
-                
-            }          
-
-            
+                $inventoryItem = InventoryItem::Where('product_id', $cartItem->product_id)->where('status', 'available')->first();
+                $inventoryItem->status = "sold";
+                $inventoryItem->save();
+                Order::Create([
+                    'inventory_item_id' => $inventoryItem->id,
+                    'full_name' => request('full_name'),
+                    'billing_address' => request('billing_address'),
+                    'shipping_address' => request('shipping_address'),
+                    'user_id' => Auth::user()->id,
+                    'credit_card' => request('credit_card'),
+                    'status' => "pending",
+                ]);
+            }
         }
         $cartItem->delete();
         return redirect('/orders');
-       
     }
 
     /**

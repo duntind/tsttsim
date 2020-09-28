@@ -71,7 +71,7 @@
                             </h4>
                         </div>
                         @can('isCustomer')                           
-                        
+                        @if ($product->inventoryItems->where('status','available')->count() > 0)
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-sm-2">
@@ -103,7 +103,8 @@
                                 <span class="error invalid-feedback" style="display: inline;">
                                     {{ $errors->first('quantity') }} </span>
                                 @enderror
-                                </div>                                                               
+                                </div>  
+                                @endif                                                             
                                 @elsecan('isAdmin')
                                 <div class="mt-4">
                                 <p class="text-danger">Only customer usertype can purchase</p>

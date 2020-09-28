@@ -15,6 +15,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    @if (Auth::user()->cartItems->isEmpty())
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        There is nothing in your cart.
+                      </div>                        
+                    @else
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                         <!-- title row -->
@@ -150,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <!-- /.invoice -->
                 </div><!-- /.col -->
             </div><!-- /.row -->

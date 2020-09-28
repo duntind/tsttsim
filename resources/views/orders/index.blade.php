@@ -22,21 +22,21 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Date & Time Of Order</th>
                                         <th>Item ID</th>
                                         <th>Product</th>
                                         <th>Shipping Address</th>                                        
-                                        <th>Status</th>  
-                                        <th>Date & Time Of Order</th>                                                                              
+                                        <th>Status</th>                                                                                                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (Auth::user()->orders as $order)
-                                        <tr>                                            
+                                        <tr>    
+                                            <td>{{ $order->created_at}}</td>                                        
                                             <td>{{ $order->inventory_item_id}}</td>
                                             <td>{{ $order->inventoryItem->product->name}}</td>
                                             <td>{{ $order->shipping_address}}</td>                                                                                       
-                                            <td>{{ $order->status}}</td>
-                                            <td>{{ $order->created_at}}</td>
+                                            <td>{{ $order->status}}</td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
